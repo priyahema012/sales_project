@@ -1,0 +1,196 @@
+/* General container styling */
+.container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Add user button styling */
+.addUserButton {
+  padding: 12px 24px;
+  margin-bottom: 20px;
+  background-color: #00796b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.addUserButton:hover {
+  background-color: #004d40;
+  transform: scale(1.05);
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.table thead {
+  background-color: #00796b;
+  color: #fff;
+}
+
+.table th, .table td {
+  padding: 14px 18px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+  color: #333;
+}
+
+.table th {
+  font-weight: 600;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tr:hover {
+  background-color: #e0f7fa;
+}
+
+/* Button inside table rows */
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+/* Modal container styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content styling */
+.modalContent {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal header styling */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.modalTitle {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.closeButton {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  color: #00796b;
+}
+
+/* Modal body and footer */
+.modalBody {
+  margin: 20px 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.cancelButton, .submitButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background-color: #6c757d;
+  color: white;
+  margin-right: 10px;
+}
+
+.submitButton {
+  background-color: #28a745;
+  color: white;
+}
+
+.submitButton:hover {
+  background-color: #218838;
+}
+
+.cancelButton:hover {
+  background-color: #5a6268;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .table th, .table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .modalContent {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .modalTitle {
+    font-size: 18px;
+  }
+
+  .addUserButton {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .cancelButton, .submitButton {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
