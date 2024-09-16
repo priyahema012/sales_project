@@ -215,3 +215,26 @@ button[type="button"]:hover {
     background-color: #3d91f1;
   }
   
+  .filterButtons {
+    left: 1000px;
+    position: relative;
+    bottom: 50px;
+  }
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  .filterButton {
+    /* Additional styles for the Filter button */
+    margin-left: 800px;
+  }
+  
+  .addButton {
+    /* Additional styles for the Add Dealer button */
+    left: 800px;
+    position: relative;
+  }
+  

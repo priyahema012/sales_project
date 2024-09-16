@@ -13,6 +13,8 @@
   z-index: 1000;
 }
 
+
+
 .modal-content {
   background: #fff;
   border-radius: 8px;
@@ -95,3 +97,5 @@
     flex-direction: column;
   }
 }
+
+

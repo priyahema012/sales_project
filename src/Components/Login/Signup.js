@@ -3,9 +3,10 @@ import { forgotPassword } from "../../axios/Services";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { handleresetkey } from "../../redux/reducers/AuthReducer";
+import { handleResetKey } from '../../redux/reducers/AuthReducer'; 
 import { useNavigate } from "react-router-dom";
 import classes from "./Signup.module.css";
+import { Button, Form, Input, Row, Col, message } from 'antd';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -25,13 +26,21 @@ export default function Signup() {
       formData.append("email", values.email);
       forgotPassword(formData)
         .then((res) => {
-          const resetKey = res.data.reset_key;
-          dispatch(handleresetkey(resetKey));
-
+          if(res.data.status === 0){
+            const resetKey = res.data.reset_key;
+            dispatch(handleResetKey(resetKey));
+            sessionStorage.setItem("reset_key", resetKey);
+            message.error("Sorry. The requested account not found");
+          }
         
-          sessionStorage.setItem("reset_key", resetKey);
+          
 
-          navigate("/verify-otp");
+           else  if(res.data.status === 1){
+            message.success("Verified Successfully");
+         
+            navigate("/verify-otp");
+
+           }
         })
         .catch((err) => {
           console.error(err);

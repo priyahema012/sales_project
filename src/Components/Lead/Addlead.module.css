@@ -1,0 +1,44 @@
+.container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .formContainer {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .inputGroup {
+      margin-bottom: 15px;
+    }
+    
+    .formControl {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .isInvalid {
+      border-color: #dc3545;
+    }
+    
+    .invalidFeedback {
+      color: #dc3545;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    
+    .d-grid {
+      display: grid;
+      gap: 10px;
+    }
+    
+    .mt-3 {
+      margin-top: 1rem;
+    }
+    

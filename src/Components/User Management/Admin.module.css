@@ -1,222 +1,114 @@
-/* Container for the entire Dealer page */
-.tableContainer {
-  padding: 20px;
-  background-color: #f8f9fa;
-}
-
-/* Styling for the table */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 16px;
-  color: #333;
-}
-
-.table th, .table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.table th {
-  background-color: #3d91f1;
-  color: #fff;
-}
-
-.table tr:hover {
-  background-color: #f1f1f1;
-}
-
-.table td button {
-  margin-right: 5px;
-  background-color:#3d91f1;
-  border: none;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.table td button:hover {
-  background-color: #3d91f1;
-}
-
-/* Button styles */
-button[type="button"] {
-  background-color: #3d91f1;
-  border: none;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-button[type="button"]:hover {
-  background-color: #3d91f1;
-}
-
-/* Modal styles */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050;
-}
-
-.modal-dialog {
-  max-width: 600px;
-  margin: 1.75rem auto;
-}
-
-.modal-content {
-  background-color: #fff;
-  border-radius: 0.3rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-}
-
-.modal-header {
-  border-bottom: 1px solid #dee2e6;
-  padding: 15px;
-  background-color: #f1f1f1;
-}
-
-.modal-title {
-  margin: 0;
-  font-size: 18px;
-}
-
-.modal-body {
-  padding: 20px;
-}
-
-.modal-footer {
-  border-top: 1px solid #dee2e6;
-  padding: 15px;
-  background-color: #f1f1f1;
-}
-
-.modal-footer .btn {
-  margin-right: 5px;
-}
-
-/* Form styles */
-.formContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.inputGroup {
-  margin-bottom: 15px;
-}
-
-.formControl {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-}
-
-.isInvalid {
-  border-color: #62f5fa;
-}
-
-.invalidFeedback {
-  color: #52eef3;
-  font-size: 12px;
-  margin-top: 5px;
-}
-
-.submitButton {
-  background-color: #3d91f1;
-  border: none;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.submitButton:hover {
-  background-color: #0056b3;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .table {
-      font-size: 14px;
-  }
-
-  .modal-dialog {
-      width: 90%;
-  }
-}
-
-@media (max-width: 576px) {
-  .modal-content {
-      border-radius: 0;
-  }
-
-  .modal-body {
-      padding: 15px;
-  }
-
-  .submitButton, button[type="button"] {
-      width: 100%;
-      padding: 12px;
-      font-size: 14px;
-  }
-}
-
-
-
+/* Container for the Admin module */
 .container {
-  display: flex;
-  flex-direction: column;
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
 }
 
+/* Header section styles */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styles */
+.addUserButton {
+  background-color: #1890ff;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  left: 350px;
+  position: relative;
+}
+
+.addUserButton:hover {
+  background-color: #40a9ff;
 }
 
 .filterButton {
-  margin-right: 16px;
+  background-color: #40a9ff;
+  color: #ffffff;
+  border: none;
+  /* left: 350px;
+  position: relative; */
 }
 
-.addUserButton {
-  margin-left: auto;
+.filterButton:hover {
+  background-color: #1890ff;
 }
 
+/* Table container styles */
 .tableContainer {
-  margin-top: 16px;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
+/* Table styles */
 .table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.pagination {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #d9d9d9;
 }
 
-.buttonSpacing {
-  margin-right: 10px; /* Adds gap between the buttons */
+.table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.tableRow:hover {
+  background-color: #fafafa;
+}
+
+/* Action button styles */
+.deleteButton {
+  background-color: #ff4d4f;
+  color: #ffffff;
+  border: none;
+}
+
+.deleteButton:hover {
+  background-color: #ff6e6e;
+}
+
+/* No data available message styles */
+.noData {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+}
+
+/* Pagination styles */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination .ant-pagination-item {
+  border-radius: 4px;
+}
+
+/* Modal styling */
+.ant-modal-body {
+  padding: 20px;
+}
+
+.ant-modal-footer {
+  display: flex;
+  justify-content: flex-end;
 }

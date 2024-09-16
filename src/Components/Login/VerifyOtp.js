@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { verifyOtp, resend } from "../../axios/Services";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { handleresetkey } from "../../redux/reducers/AuthReducer";
+import { handleResetKey } from '../../redux/reducers/AuthReducer'; 
 import { message, Typography, Input } from "antd"; 
 import classes from "./VerifyOtp.module.css"; 
 
@@ -22,7 +22,7 @@ function VerifyOtp() {
     if (!hema.resetkey) {
       const storedResetKey = sessionStorage.getItem("reset_key");
       if (storedResetKey) {
-        dispatch(handleresetkey(storedResetKey));
+        dispatch(handleResetKey(storedResetKey));
       }
     }
   }, [dispatch, hema.resetkey]);
@@ -53,7 +53,7 @@ function VerifyOtp() {
 
       verifyOtp(formdata)
         .then((res) => {
-          dispatch(handleresetkey(res.data.reset_key));
+          dispatch(handleResetKey(res.data.reset_key));
           message.success("OTP verified successfully! Please create a new password.");
           navigate("/reset");
         })
@@ -78,7 +78,7 @@ function VerifyOtp() {
 
     resend(formdata)
       .then((res) => {
-        dispatch(handleresetkey(res.data.reset_key)); 
+        dispatch(handleResetKey(res.data.reset_key)); 
             sessionStorage.setItem("reset_key", res.data.reset_key);
         message.success("A new OTP has been sent. Please check your email or phone.");
         setResendClicked(true);

@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
@@ -6,7 +5,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, Row, Col, message } from 'antd';
 import { resetPassword } from '../../axios/Services';
-import { handleresetkey } from '../../redux/reducers/AuthReducer';
+import { handleResetKey } from '../../redux/reducers/AuthReducer'; // Updated import
 import classes from './Reset.module.css';
 
 function ResetPassword() {
@@ -14,11 +13,10 @@ function ResetPassword() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-   
     useEffect(() => {
-        const storedResetKey = sessionStorage.getItem('resetKey');
+        const storedResetKey = sessionStorage.getItem('reset_key');
         if (!reset && storedResetKey) {
-            dispatch(handleresetkey(storedResetKey));
+            dispatch(handleResetKey(storedResetKey)); // Updated usage
         }
     }, [reset, dispatch]);
 
@@ -45,17 +43,15 @@ function ResetPassword() {
 
         resetPassword(formData)
         .then((res) => {
-            sessionStorage.setItem('resetKey', res.reset_key);
-            dispatch(handleresetkey(res.reset_key));
+            sessionStorage.setItem('reset_key', res.reset_key);
+            dispatch(handleResetKey(res.reset_key)); // Updated usage
             message.success("Password successfully changed");
             navigate('/login');
         })
         .catch((err) => {
-           
             console.log(err.response?.data || err.message);
             message.error(err.response?.data?.message || "Invalid OTP. Please try again.");
         });
-    
     };
 
     return (

@@ -1,14 +1,20 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { UserOutlined, UnorderedListOutlined, ProductOutlined } from "@ant-design/icons";
-import classes from "./Navpage.module.css"; 
+import {
+  UserOutlined,
+  UnorderedListOutlined,
+  ProductOutlined,
+} from "@ant-design/icons";
+import classes from "./Navpage.module.css";
 
 const Navpage = () => {
   const navigate = useNavigate();
 
   return (
     <div className={classes.navpageContainer}>
-      <nav className={`navbar navbar-expand-lg navbar-dark shadow-sm ${classes.navbar}`}>
+      <nav
+        className={`navbar navbar-expand-lg navbar-dark shadow-sm ${classes.navbar}`}
+      >
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -62,15 +68,57 @@ const Navpage = () => {
                 </ul>
               </li>
               <li className="nav-item">
-                <a className={`nav-link active ${classes.navLink}`} aria-current="page" href="#">
+                <a
+                  className={`nav-link active ${classes.navLink}`}
+                  aria-current="page"
+                  href="#"
+                >
                   <ProductOutlined />
                   <button
-                      className={classes.lead}
-                      onClick={() => navigate("/lead")}
+                    className={classes.lead}
+                    onClick={() => navigate("/lead")}
                   >
                     Leads
                   </button>
                 </a>
+              </li>
+              <li className="nav-item dropdown">
+                <a
+                  className={`nav-link dropdown-toggle ${classes.navLink}`}
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <UnorderedListOutlined />
+                  Masters
+                </a>
+                <ul className={`dropdown-menu ${classes.dropdownMenu}`}>
+                  <li>
+                    <button
+                      className={classes.port}
+                      onClick={() => navigate("/category")}
+                    >
+                      Catogory
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className={classes.port}
+                      onClick={() => navigate("/requirements")}
+                    >
+                      Requirements
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      className={classes.port}
+                      onClick={() => navigate("/enquiry")}
+                    >
+                      Enquiry Type
+                    </button>
+                  </li>
+                </ul>
               </li>
               <li className="nav-item">
                 <button

@@ -95,4 +95,20 @@
       flex-direction: column;
     }
   }
+
+  .btnSubmit{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    left: 30px;
+    position: relative;
+  }
+
+  .btnSubmit:hover {
+    background-color: #0056b3;
+  }
   

@@ -1,39 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { LeadList, leaddelete , viewlead  , updatelead} from "../../axios/Services";
+import {
+  LeadList,
+  leaddelete,
+  viewlead,
+  updatelead,
+} from "../../axios/Services";
 import { useSelector } from "react-redux";
-import Editmodel from "./Editmodel"; 
+import Editmodel from "./Editmodel";
 
 function Lead() {
   const selector = useSelector((state) => state.auth);
   const [data, setData] = useState([]);
-  
+
   const [editModel, setEditModel] = useState(false); // Edit modal state
- 
-  
   const handleEditUser = (leadId) => {
-   
-       
-        setEditModel(true); 
-     
-     
+    setEditModel(true);
   };
-
-
-
-  
-
-
-
-
- 
-
-  
-
-  
   return (
     <div>
-      
-
       <table>
         <thead>
           <tr>
@@ -65,10 +49,12 @@ function Lead() {
                 <td>{item.created_by_id}</td>
                 <td>{item.activeStatus}</td>
                 <td>
-                 
-                  <button type="button" onClick={() => handleEditUser(item.leadId)}>
+                  <button
+                    type="button"
+                    onClick={() => handleEditUser(item.leadId)}
+                  >
                     Edit
-                  </button> 
+                  </button>
                 </td>
               </tr>
             ))
@@ -80,9 +66,6 @@ function Lead() {
         </tbody>
       </table>
 
-     
-      
-     
       {editModel && (
         <Editmodel
           editModel={editModel}

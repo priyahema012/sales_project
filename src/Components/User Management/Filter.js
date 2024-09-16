@@ -1,14 +1,12 @@
 import React from "react";
-import * as Yup from "yup";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import {
-  deletehandlefilter,
-  handlefilter,
-} from "../../../src/redux/reducers/AuthReducer";
 import { Button, Form, Input } from "antd";
+import { deletehandlefilter } from "../../../src/redux/reducers/AuthReducer"; // Import updated action
+import classes from "./Filter.module.css";
 
-function Filter({ handleReseted }) {
+function Filter({ functioncall }) {
   const dispatch = useDispatch();
 
   const validationSchema = Yup.object({
@@ -18,112 +16,101 @@ function Filter({ handleReseted }) {
       "Phone number must be 10 digits"
     ),
     email: Yup.string().email("Invalid email format"),
-    dealerId: Yup.number(),
   });
 
-  const handleReset = () => {
-    resetForm(); // Reset Formik's state
-    
-    // Reset Ant Design form fields
-  };
-
-  const {
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    values,
-    errors,
-    touched,
-    resetForm
-    
-  } = useFormik({
+  const formik = useFormik({
     initialValues: {
       userName: "",
-      // dealerId: "",
       email: "",
       phoneNumber: "",
     },
-
     validationSchema: validationSchema,
-    onSubmit: (values) => dispatch(deletehandlefilter(values)),
+    onSubmit: (values) => {
+      functioncall(1, 10, values);
+    },
   });
 
-  console.log("values", values);
+  const handleReset = () => {
+    formik.resetForm();
+    functioncall();
+    dispatch(deletehandlefilter()); // Updated action to handle the reset
+  };
 
   return (
-    <Form onFinish={handleSubmit}>
-      <Form.Item
-        label="Username"
-        validateStatus={touched.userName && errors.userName ? "error" : ""}
-        help={touched.userName && errors.userName ? errors.userName : ""}
-      >
-        <Input
-          name="userName"
-          value={values.userName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </Form.Item>
+    <Form onFinish={formik.handleSubmit} className={classes.formContainer}>
+      <div className={classes.formRow}>
+        <Form.Item
+          label={<span className={classes.formLabel}>User</span>}
+          validateStatus={
+            formik.touched.userName && formik.errors.userName ? "error" : ""
+          }
+          help={
+            formik.touched.userName && formik.errors.userName
+              ? formik.errors.userName
+              : ""
+          }
+          className={classes.formItem}
+        >
+          <Input
+            name="userName"
+            value={formik.values.userName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={classes.inputField}
+          />
+        </Form.Item>
 
-      <Form.Item
-        label="Email"
-        validateStatus={touched.email && errors.email ? "error" : ""}
-        help={touched.email && errors.email ? errors.email : ""}
-      >
-        <Input
-          name="email"
-          value={values.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </Form.Item>
+        <Form.Item
+          label={<span className={classes.formLabel}>Email</span>}
+          validateStatus={
+            formik.touched.email && formik.errors.email ? "error" : ""
+          }
+          help={
+            formik.touched.email && formik.errors.email
+              ? formik.errors.email
+              : ""
+          }
+          className={classes.formItem}
+        >
+          <Input
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={classes.inputField}
+          />
+        </Form.Item>
 
-      {/* <Form.Item
-        label="Dealer ID"
-        validateStatus={touched.dealerId && errors.dealerId ? "error" : ""}
-        help={touched.dealerId && errors.dealerId ? errors.dealerId : ""}
-      >
-        <Input
-          name="dealerId"
-          value={values.dealerId}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </Form.Item> */}
+        <Form.Item
+          label={<span className={classes.formLabel}>Ph No</span>}
+          validateStatus={
+            formik.touched.phoneNumber && formik.errors.phoneNumber ? "error" : ""
+          }
+          help={
+            formik.touched.phoneNumber && formik.errors.phoneNumber
+              ? formik.errors.phoneNumber
+              : ""
+          }
+          className={classes.formItem}
+        >
+          <Input
+            name="phoneNumber"
+            value={formik.values.phoneNumber}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={classes.inputField}
+          />
+        </Form.Item>
+      </div>
 
-      <Form.Item
-        label="Phone Number"
-        validateStatus={
-          touched.phoneNumber && errors.phoneNumber ? "error" : ""
-        }
-        help={
-          touched.phoneNumber && errors.phoneNumber ? errors.phoneNumber : ""
-        }
-      >
-        <Input
-          name="phoneNumber"
-          value={values.phoneNumber}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </Form.Item>
-
-      <Button
-        type="primary"
-        htmlType="submit"
-        className="btn btn-primary mb-15 w-25"
-      >
-        Submit
-      </Button>
-
-      <Button
-        onClick={handleReset}
-        type="primary"
-        htmlType="submit"
-        className="btn btn-primary mb-15 w-25"
-      >
-        Reset
-      </Button>
+      <div className={classes.buttonContainer}>
+        <Button type="primary" htmlType="submit" className={classes.submitButton}>
+          Submit
+        </Button>
+        <Button onClick={handleReset} className={classes.resetButton}>
+          Reset
+        </Button>
+      </div>
     </Form>
   );
 }

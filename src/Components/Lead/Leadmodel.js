@@ -1,21 +1,15 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
-import { AddCreate, CreateLeadList ,  LeadList } from "../../axios/Services";
+import { AddCreate, CreateLeadList, LeadList } from "../../axios/Services";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import classes from "./Lead.module.css";
 import Lead from "./Lead";
-import { message, Typography, Input } from "antd"; 
+import { message, Typography, Input } from "antd";
 
 export function Leadmodel({ isModalOpen, handleAddClose, handleModalClose }) {
   const selector = useSelector((state) => state.auth);
   const [data, setData] = useState([]);
-  // const [isModalOpen, setIsModalOpen] = useState(true);
-
-  // const handleModalCloses = () => {
-  //   setIsModalOpen(false); // Logic to close the modal
-  // };
-
 
   const userValidation = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -77,15 +71,12 @@ export function Leadmodel({ isModalOpen, handleAddClose, handleModalClose }) {
         upload_file: "",
         approximate_amount: "",
       },
-     
-
-      
 
       validationSchema: userValidation,
       onSubmit: (values) => {
         const formData = new FormData();
         formData.append("token", selector.token);
-       
+
         formData.append("name", values.name);
         formData.append(
           "phone_country_code",
@@ -105,16 +96,6 @@ export function Leadmodel({ isModalOpen, handleAddClose, handleModalClose }) {
           .catch((err) => {
             console.error("API Error:", err);
           });
-            
-
-         
-
-          // useEffect(() => {
-          //   if (selector.token) {
-          //     loadAdminData();
-          //   }
-          // }, [selector.token]);
-        
       },
     });
 
@@ -122,29 +103,55 @@ export function Leadmodel({ isModalOpen, handleAddClose, handleModalClose }) {
     <div>
       {isModalOpen && (
         <div className="modal show" style={{ display: "block" }} tabIndex="-1">
-          <div className="modal-dialog"> <div className="modal-content">     <div className="modal-header">
-                <button type="button" className="btn-close" aria-label="Close" onClick={handleAddClose}></button> 
-            </div>   
-                 
-              <div className="modal-body">  <form onSubmit={handleSubmit} className={classes.formContainer}>
-              
-                  <h2>Add User</h2> <div className="row"><div className="col-md-6">
-                  <div className={classes.inputGroup}>
-                  <input type="text" name="name"
-                     className={`${classes.formControl} ${
-                          touched.name && errors.name ? classes.isInvalid : "" }`}  placeholder="Enter your name"
-                          onChange={handleChange} onBlur={handleBlur} value={values.name}
+          <div className="modal-dialog">
+            {" "}
+            <div className="modal-content">
+              {" "}
+              <div className="modal-header">
+                <button
+                  type="button"
+                  className="btn-close"
+                  aria-label="Close"
+                  onClick={handleAddClose}
+                ></button>
+              </div>
+              <div className="modal-body">
+                {" "}
+                <form onSubmit={handleSubmit} className={classes.formContainer}>
+                  <h2>Add User</h2>{" "}
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className={classes.inputGroup}>
+                        <input
+                          type="text"
+                          name="name"
+                          className={`${classes.formControl} ${
+                            touched.name && errors.name ? classes.isInvalid : ""
+                          }`}
+                          placeholder="Enter your name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.name}
                         />
-                          {touched.name && errors.name && ( <div className={classes.invalidFeedback}>{errors.name}
-                         </div>  )}
+                        {touched.name && errors.name && (
+                          <div className={classes.invalidFeedback}>
+                            {errors.name}
+                          </div>
+                        )}
                       </div>
                       <div className={classes.inputGroup}>
-                        <input type="text" name="remarks"className={`${classes.formControl} ${
-                           touched.remarks && errors.remarks
-                           ? classes.isInvalid
-                           : ""
+                        <input
+                          type="text"
+                          name="remarks"
+                          className={`${classes.formControl} ${
+                            touched.remarks && errors.remarks
+                              ? classes.isInvalid
+                              : ""
                           }`}
-                            placeholder="Enter your Remarks" onChange={handleChange} onBlur={handleBlur} value={values.remarks}
+                          placeholder="Enter your Remarks"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.remarks}
                         />
                         {touched.remarks && errors.userName && (
                           <div className={classes.invalidFeedback}>
@@ -153,76 +160,165 @@ export function Leadmodel({ isModalOpen, handleAddClose, handleModalClose }) {
                         )}
                       </div>
                       <div className={classes.inputGroup}>
-                        <input type="text" name="phone" className={`${classes.formControl} ${touched.phone && errors.phone? classes.isInvalid
-                           : ""
+                        <input
+                          type="text"
+                          name="phone"
+                          className={`${classes.formControl} ${
+                            touched.phone && errors.phone
+                              ? classes.isInvalid
+                              : ""
                           }`}
-                          placeholder="Enter your phone" onChange={handleChange} onBlur={handleBlur} value={values.phone}
-/>
-                        {touched.phone && errors.phone && ( <div className={classes.invalidFeedback}>{errors.phone} </div>
+                          placeholder="Enter your phone"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.phone}
+                        />
+                        {touched.phone && errors.phone && (
+                          <div className={classes.invalidFeedback}>
+                            {errors.phone}{" "}
+                          </div>
                         )}
                       </div>
                     </div>
-                    <div className="col-md-6"> <div className={classes.inputGroup}> <input type="number" name="landline_number"className={`${classes.formControl} ${
-                      touched.landline_number && errors.landline_number
-                       ? classes.isInvalid
-                           
-                              : ""
-                          }`}
-                           placeholder="Enter your landline_number"  onChange={handleChange}onBlur={handleBlur} value={values.landline_number}
-                        />
-                        {touched.landline_number && errors.landline_number && ( <div className={classes.invalidFeedback}> {errors.landline_number}
-                          </div>
-                           )}  </div>
-                         <div className={classes.inputGroup}  >
-                        <input type="text" name=" whatsapp_country_coder"  className={`${classes.formControl} ${touched.whatsapp_country_code &&
-                           errors.whatsapp_country_code ? classes.isInvalid
-                              : ""
-                          }`}
-                          placeholder="Enter your landline number" onChange={handleChange} onBlur={handleBlur}value={values.whatsapp_country_code}
-                        />
-                        {touched.whatsapp_country_code && errors.whatsapp_country_code && (  <div className={classes.invalidFeedback}>  {errors.whatsapp_country_code}
-                            </div>
-                          )}
-                      </div> <div className={classes.inputGroup}><input type="text"name="alter_country_code"className={`${classes.formControl} ${
-                            touched.alter_country_code &&  errors.alter_country_code ? classes.isInvalid  : "" 
-                          }`}
-                          placeholder="Enter your alter_country_code" onChange={handleChange}onBlur={handleBlur} value={values.alter_country_code}                                                                                
-                        />
-                        {touched.alter_country_code &&errors.alter_country_code && (  <div className={classes.invalidFeedback}> {errors.alter_country_code}
-                            </div>
-                          )}
-                      </div>
-                      <div className={classes.inputGroup}>  <input
-                       type="text" name="company_name"   className={`${classes.formControl} ${ touched.city && errors.city ? classes.isInvalid : ""
-                          }`}
-                          placeholder="Enter your company_name" onChange={handleChange} onBlur={handleBlur} value={values.company_name}  
-                        />
-                        {touched.city && errors.city && ( <div className={classes.invalidFeedback}>{errors.city}
-                         </div>
-                            )}
-                      </div>
-                           <div className={classes.inputGroup}> <input  type="text"  name="  contact_person"
-                         className={`${classes.formControl} ${  touched.contact_person && errors.contact_person
+                    <div className="col-md-6">
+                      {" "}
+                      <div className={classes.inputGroup}>
+                        {" "}
+                        <input
+                          type="number"
+                          name="landline_number"
+                          className={`${classes.formControl} ${
+                            touched.landline_number && errors.landline_number
                               ? classes.isInvalid
                               : ""
                           }`}
-                          placeholder="Enter your  contact_persony"  onChange={handleChange} onBlur={handleBlur} value={values.contact_person}
+                          placeholder="Enter your landline_number"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.landline_number}
                         />
-                        {touched.country && errors.country && ( <div className={classes.invalidFeedback}> {errors.country}
+                        {touched.landline_number && errors.landline_number && (
+                          <div className={classes.invalidFeedback}>
+                            {" "}
+                            {errors.landline_number}
                           </div>
-                        )}
+                        )}{" "}
                       </div>
-                      <div className={classes.inputGroup}> <input type="text"name="address" className={`${classes.formControl} ${ touched.address && errors.address
+                      <div className={classes.inputGroup}>
+                        <input
+                          type="text"
+                          name=" whatsapp_country_coder"
+                          className={`${classes.formControl} ${
+                            touched.whatsapp_country_code &&
+                            errors.whatsapp_country_code
                               ? classes.isInvalid
                               : ""
                           }`}
-                          placeholder="Enter your address" onChange={handleChange}  onBlur={handleBlur}  value={values.address}
+                          placeholder="Enter your landline number"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.whatsapp_country_code}
                         />
-                        {touched.address && errors.address && (  <div className={classes.invalidFeedback}> {errors.address}
+                        {touched.whatsapp_country_code &&
+                          errors.whatsapp_country_code && (
+                            <div className={classes.invalidFeedback}>
+                              {" "}
+                              {errors.whatsapp_country_code}
+                            </div>
+                          )}
+                      </div>{" "}
+                      <div className={classes.inputGroup}>
+                        <input
+                          type="text"
+                          name="alter_country_code"
+                          className={`${classes.formControl} ${
+                            touched.alter_country_code &&
+                            errors.alter_country_code
+                              ? classes.isInvalid
+                              : ""
+                          }`}
+                          placeholder="Enter your alter_country_code"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.alter_country_code}
+                        />
+                        {touched.alter_country_code &&
+                          errors.alter_country_code && (
+                            <div className={classes.invalidFeedback}>
+                              {" "}
+                              {errors.alter_country_code}
+                            </div>
+                          )}
+                      </div>
+                      <div className={classes.inputGroup}>
+                        {" "}
+                        <input
+                          type="text"
+                          name="company_name"
+                          className={`${classes.formControl} ${
+                            touched.city && errors.city ? classes.isInvalid : ""
+                          }`}
+                          placeholder="Enter your company_name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.company_name}
+                        />
+                        {touched.city && errors.city && (
+                          <div className={classes.invalidFeedback}>
+                            {errors.city}
                           </div>
                         )}
                       </div>
-                      <div className={classes.inputGroup}><input type="text" name="area"   className={`${classes.formControl} ${  touched.area && errors.area ? classes.isInvalid : ""
+                      <div className={classes.inputGroup}>
+                        {" "}
+                        <input
+                          type="text"
+                          name="  contact_person"
+                          className={`${classes.formControl} ${
+                            touched.contact_person && errors.contact_person
+                              ? classes.isInvalid
+                              : ""
+                          }`}
+                          placeholder="Enter your  contact_persony"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.contact_person}
+                        />
+                        {touched.country && errors.country && (
+                          <div className={classes.invalidFeedback}>
+                            {" "}
+                            {errors.country}
+                          </div>
+                        )}
+                      </div>
+                      <div className={classes.inputGroup}>
+                        {" "}
+                        <input
+                          type="text"
+                          name="address"
+                          className={`${classes.formControl} ${
+                            touched.address && errors.address
+                              ? classes.isInvalid
+                              : ""
+                          }`}
+                          placeholder="Enter your address"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.address}
+                        />
+                        {touched.address && errors.address && (
+                          <div className={classes.invalidFeedback}>
+                            {" "}
+                            {errors.address}
+                          </div>
+                        )}
+                      </div>
+                      <div className={classes.inputGroup}>
+                        <input
+                          type="text"
+                          name="area"
+                          className={`${classes.formControl} ${
+                            touched.area && errors.area ? classes.isInvalid : ""
                           }`}
                           placeholder="Enter your area"
                           onChange={handleChange}
@@ -255,7 +351,6 @@ export function Leadmodel({ isModalOpen, handleAddClose, handleModalClose }) {
                           </div>
                         )}
                       </div>
-
                       <div className={classes.inputGroup}>
                         <input
                           type="text"
@@ -535,7 +630,6 @@ export function Leadmodel({ isModalOpen, handleAddClose, handleModalClose }) {
                           </div>
                         )}
                       </div>
-
                       <div className={classes.inputGroup}>
                         <input
                           type="text"

@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { dropdown1, dropdown2, reassign } from "../../axios/Services"; 
-import { message } from "antd"; 
-
-const { Option } = Select;
+import { dropdown1, dropdown2, reassign } from "../../axios/Services";
+import { message } from "antd";
+import { useToken } from "../../Utility/hooks";
 
 const DropdownModule = ({ isOpen, onClose, userid }) => {
+  const token = useToken();
   const dispatch = useDispatch();
-  const [data, setData] = useState([]); 
-  const [valve, setValve] = useState([]); 
-  const [dealerId, setDealerId] = useState(null); 
+  const { Option } = Select;
+  const [data, setData] = useState([]);
+  const [valve, setValve] = useState([]);
+  const [dealerId, setDealerId] = useState(null);
   const [employeeId, setEmployeeId] = useState(null);
-
-
   const selector = useSelector((state) => state.auth);
 
-  
   useEffect(() => {
     if (isOpen) {
       const formData = new FormData();
-      formData.append("token", selector.token);
+      formData.append("token", token);
       formData.append("isDealer", "1");
 
       dropdown1(formData)
@@ -30,13 +28,12 @@ const DropdownModule = ({ isOpen, onClose, userid }) => {
         })
         .catch((error) => console.error("Error loading dealer data:", error));
     }
-  }, [isOpen, selector.token]);
+  }, [isOpen, token]);
 
- 
   useEffect(() => {
     if (dealerId && isOpen) {
       const formData = new FormData();
-      formData.append("token", selector.token);
+      formData.append("token", token);
       formData.append("dealerId", dealerId);
 
       dropdown2(formData)
@@ -46,7 +43,7 @@ const DropdownModule = ({ isOpen, onClose, userid }) => {
         })
         .catch((error) => console.error("Error loading employee data:", error));
     }
-  }, [dealerId, isOpen, selector.token]);
+  }, [dealerId, isOpen, token]);
 
   const onDealerChange = (value) => {
     setDealerId(value);
@@ -54,10 +51,9 @@ const DropdownModule = ({ isOpen, onClose, userid }) => {
   };
 
   const onEmployeeChange = (value) => {
-      setEmployeeId(value);
-      console.log("Selected Employee ID" ,employeeId);
-      
-  }
+    setEmployeeId(value);
+    console.log("Selected Employee ID", employeeId);
+  };
 
   const handleOk = () => {
     console.log("Submitting leadId:", userid);
@@ -65,9 +61,9 @@ const DropdownModule = ({ isOpen, onClose, userid }) => {
     formData.append("token", selector.token);
     formData.append("dealerId", dealerId);
     formData.append("employeeId", employeeId);
-    
+
     formData.append("leadId", userid);
-    
+
     reassign(formData)
       .then((res) => {
         console.log("API Response:", res);
@@ -77,7 +73,10 @@ const DropdownModule = ({ isOpen, onClose, userid }) => {
             onClose();
             message.success("Lead reassigned successfully!");
           } else {
-            console.log("Failed to update data:", res.data.message || "No message provided");
+            console.log(
+              "Failed to update data:",
+              res.data.message || "No message provided"
+            );
             message.error(res.data.message || "Failed to update data.");
           }
         } else {
@@ -86,11 +85,17 @@ const DropdownModule = ({ isOpen, onClose, userid }) => {
         }
       })
       .catch((error) => {
-        console.error("Error loading data:", error.response ? error.response.data : error.message); // Log detailed error
-        message.error(error.response?.data?.message || error.message || "An unexpected error occurred.");
+        console.error(
+          "Error loading data:",
+          error.response ? error.response.data : error.message
+        ); // Log detailed error
+        message.error(
+          error.response?.data?.message ||
+            error.message ||
+            "An unexpected error occurred."
+        );
       });
   };
-  
 
   const onChange = (value) => {
     console.log(`Selected employee: ${value}`);
@@ -162,8 +167,6 @@ const DropdownModule = ({ isOpen, onClose, userid }) => {
                   type="button"
                   className="btn btn-secondary"
                   onClick={handleOk}
-                 
-
                 >
                   OK
                 </button>

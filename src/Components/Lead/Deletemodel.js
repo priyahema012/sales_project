@@ -31,28 +31,21 @@
 
 // export default Deletemodel
 
-
-
-
-
-
-
-
-
-
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { handledeleteds } from '../../redux/reducers/AuthReducer';
-import { message, Typography, Input } from "antd"; 
+import React from "react";
+import { useDispatch } from "react-redux";
+import { handledeleteds } from "../../redux/reducers/AuthReducer";
+import { message, Typography, Input } from "antd";
 import { LeadList, leaddelete } from "../../axios/Services";
+import { useToken } from "../../Utility/hooks"; //
 
 function DeleteModule({ deletemodel, userid, confirmDelete, closeModal }) {
+  const token = useToken();
   const dispatch = useDispatch();
 
   return (
     <div>
       {deletemodel && (
-        <div className="modal show" style={{ display: 'block' }} tabIndex="-1">
+        <div className="modal show" style={{ display: "block" }} tabIndex="-1">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">

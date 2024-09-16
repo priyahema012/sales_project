@@ -1,20 +1,30 @@
-
 import React, { useEffect, useState } from "react";
 import { LeadList, leaddelete, leadid } from "../../axios/Services";
 import { useSelector } from "react-redux";
 import Leadmodel from "./Leadmodel";
 import DeleteModule from "./Deletemodel";
 import Editmodel from "./Editmodel";
-import bookmark from '../../assets/Images/png.png'; // Empty bookmark icon
-import filledbookmark from '../../assets/Images/png1.png'; // Filled bookmark icon
-import styles from './Lead.module.css'; // Import the CSS module
-import { message } from "antd"; 
-import { AlipayCircleOutlined , HarmonyOSOutlined  } from "@ant-design/icons";
+import bookmark from "../../assets/Images/png.png"; // Empty bookmark icon
+import filledbookmark from "../../assets/Images/png1.png"; // Filled bookmark icon
+import styles from "./Lead.module.css"; // Import the CSS module
+import { message } from "antd";
+import { AlipayCircleOutlined, HarmonyOSOutlined } from "@ant-design/icons";
 import DropdownModule from "./DropdownModule";
 import Dropdown1Module from "./Dropdown1Module";
-
+import { Outlet, useNavigate } from "react-router-dom";
+import { Pagination } from "antd";
+import reassign from "../../assets/Images/treatment.png";
+import active from "../../assets/Images/active-user.png";
+import {
+  FilterOutlined,
+  UserAddOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
+import { useToken } from "../../Utility/hooks";
 
 function Lead() {
+  const token = useToken();
   const selector = useSelector((state) => state.auth);
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false); // Lead modal
@@ -22,9 +32,17 @@ function Lead() {
   const [editModel, setEditModel] = useState(false); // Edit modal state
   const [dropdownOpen, setDropdownOpen] = useState(false); // Dropdown modal state
   const [dropdownsOpen, setDropdownsOpen] = useState(false); // Dropdown modal state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [pageSize, setPageSize] = useState(5); // Page size (number of items per page)
+  const [selectedLeadId, setSelectedLeadId] = useState(); // Lead ID
+  const navigate = useNavigate();
 
-  const [selectedLeadId, setSelectedLeadId] = useState(null); // Lead ID
-  const [selectedLeadData, setSelectedLeadData] = useState(null); // Store the selected lead's data
+  useEffect(() => {
+    if (token) {
+      loadAdminData(currentPage);
+    }
+  }, [token, currentPage]);
 
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -32,6 +50,7 @@ function Lead() {
 
   const handleAddUser = () => {
     setIsModalOpen(true);
+    navigate("/Addlead");
   };
 
   const handleDeleteModal = (leadId) => {
@@ -44,38 +63,37 @@ function Lead() {
     setSelectedLeadId(leadId);
   };
 
-  const handleId = (leadId) => {
-    const formData = new FormData();
-    formData.append("token", selector.token);
-    formData.append("leadId", leadId);
-
-    leadid(formData)
-      .then((res) => {
-        if (res.data.success) {
-          console.log("Data updated successfully");
-          message.success("OTP verified successfully! Please create a new password.");
-          loadAdminData();
-        } else {
-          console.log("Failed to update data:", res.data.message);
-        }
-      })
-      .catch((error) => {
-        console.error("Error loading data:", error);
-      });
+  const handleDrop = () => {
+    setDropdownOpen(true);
   };
 
-  const loadAdminData = () => {
-    const formData = new FormData();
-    formData.append("token", selector.token);
+  const handleDrop1 = (leadId) => {
+    setSelectedLeadId(leadId);
+    setDropdownsOpen(true);
+  };
 
-    LeadList(formData)
-      .then((res) => setData(res.data.data.items))
+  const loadAdminData = (currentPage = 1, size = 10) => {
+    const formData = new FormData();
+    formData.append("token", token);
+    formData.append("page", currentPage);
+    formData.append("size", size);
+
+    LeadList(currentPage, size, formData)
+      .then((res) => {
+        setData(res.data.data.items);
+        setTotalItems(res.data.data.total_count);
+      })
       .catch(() => console.log("Error loading data"));
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    loadAdminData(page, pageSize);
   };
 
   const handleDelete = (leadId) => {
     const formData = new FormData();
-    formData.append("token", selector.token);
+    formData.append("token", token);
     formData.append("leadId", leadId);
 
     leaddelete(formData)
@@ -83,48 +101,32 @@ function Lead() {
         setData((prevData) =>
           prevData.filter((item) => item.leadId !== leadId)
         );
-        setDeletemodel(false); // Close delete modal after deletion
+        setDeletemodel(false);
         message.success("Deleted Successfully");
       })
       .catch(() => console.log("Error deleting lead"));
   };
 
-  const handleDropdown = (leadId) => {
-    setSelectedLeadId(leadId);
-    setDropdownOpen(true);
-  };
-
-  const handleDropdowns = (value) => {
-    setDropdownsOpen(true);
-    setSelectedLeadId(value);
-  }
-
   const toggleActiveStatus = (leadId, currentStatus) => {
     const newStatus = currentStatus === 1 ? 0 : 1;
     const formData = new FormData();
-    formData.append("token", selector.token);
+    formData.append("token", token);
     formData.append("leadId", leadId);
     formData.append("isActive", newStatus);
 
     leadid(formData)
       .then(() => {
-        loadAdminData();
-        message.success("Active State");
+        loadAdminData(currentPage, pageSize);
+        message.success("Active State Updated");
       })
       .catch(() => console.log("Error updating status"));
-   
   };
-
-  useEffect(() => {
-    if (selector.token) {
-      loadAdminData();
-    }
-  }, [selector.token]);
 
   return (
     <div className={styles.container}>
       <button className={styles.button} type="button" onClick={handleAddUser}>
-        Add User
+        ADD LEAD
+        <UserAddOutlined />
       </button>
 
       <table className={styles.table}>
@@ -145,8 +147,10 @@ function Lead() {
         </thead>
         <tbody>
           {data.length > 0 ? (
-            data.map((item, index) => (
-              <tr key={index}>
+            data.map((item , index) => (
+             
+              <tr key={item.leadId}>
+                     {/* <td>{(currentPage - 1) * 2 + index + 1}</td>{" "} */}
                 <td>{item.due_type}</td>
                 <td>{item.leadId}</td>
                 <td>{item.leadName}</td>
@@ -160,24 +164,33 @@ function Lead() {
                   <img
                     src={item.activeStatus === 1 ? filledbookmark : bookmark}
                     alt="status icon"
-                    onClick={() => toggleActiveStatus(item.leadId, item.activeStatus)}
+                    onClick={() =>
+                      toggleActiveStatus(item.leadId, item.activeStatus)
+                    }
                   />
                 </td>
                 <td>
-                  <button className={styles.button} onClick={() => handleDeleteModal(item.leadId)}>
-                    Delete
-                  </button> <br></br>
-                  <button className={styles.button} onClick={() => handleEditUser(item.leadId)}>
-                    Edit
-                  </button> <br></br>
-                  <button onClick={() => handleDropdown(item.leadId)}>
-                    <AlipayCircleOutlined />
-                  </button> <br></br>
-                  <button onClick={() => handleDropdowns(item.leadId)}>
-                  <HarmonyOSOutlined />
+                  <button
+                    className={styles.button}
+                    onClick={() => handleDeleteModal(item.leadId)}
+                  >
+                    <DeleteOutlined />
+                  </button>{" "}
+                  <br />
+                  <button
+                    className={styles.button}
+                    onClick={() => handleEditUser(item.leadId)}
+                  >
+                    <EditOutlined />
+                  </button>{" "}
+                  <br />
+                  <button onClick={handleDrop}>
+                    <img src={reassign} alt="Reassign" />
+                  </button>{" "}
+                  <br />
+                  <button onClick={() => handleDrop1(item.leadId)}>
+                    <img src={active} alt="Active" />
                   </button>
-
-
                 </td>
               </tr>
             ))
@@ -199,9 +212,9 @@ function Lead() {
       {deletemodel && (
         <DeleteModule
           deletemodel={deletemodel}
-          userid={selectedLeadId} // Pass selected leadId for deletion
-          confirmDelete={() => handleDelete(selectedLeadId)} // Pass delete handler
-          closeModal={() => setDeletemodel(false)} // Pass close modal function
+          userid={selectedLeadId}
+          confirmDelete={() => handleDelete(selectedLeadId)}
+          closeModal={() => setDeletemodel(false)}
         />
       )}
 
@@ -216,51 +229,27 @@ function Lead() {
       {dropdownOpen && (
         <DropdownModule
           isOpen={dropdownOpen}
-          userid={selectedLeadId}
-          onConfirm={() => {
-            setDropdownOpen(false);
-            // Perform any additional actions if needed
-          }}
           onClose={() => setDropdownOpen(false)}
+          userid={selectedLeadId}
         />
       )}
-      
       {dropdownsOpen && (
         <Dropdown1Module
           isOpen={dropdownsOpen}
-          userid={selectedLeadId}
-          onConfirm={() => {
-            setDropdownsOpen(false);
-            // Perform any additional actions if needed
-          }}
           onClose={() => setDropdownsOpen(false)}
-          selectedLeadId={selectedLeadId}/>
+          userid={selectedLeadId}
+          selectedLeadId={selectedLeadId} // Ensure `selectedLeadId` is passed if needed
+        />
       )}
 
-
+      <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={totalItems}
+        onChange={handlePageChange}
+      />
     </div>
   );
 }
 
 export default Lead;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

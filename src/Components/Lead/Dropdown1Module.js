@@ -9,17 +9,43 @@ import {
 import { message } from "antd";
 import { useFormik } from "formik";
 import { Button, Modal, Form, Input, Select, DatePicker } from "antd";
-import moment from "moment"; // Import moment
-
-const { Option } = Select;
+import moment from "moment"; 
+import { useToken } from "../../Utility/hooks";
 
 const Dropdown1Module = ({ isOpen, onClose, userid, selectedLeadId }) => {
+  const token = useToken();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [comp, setComp] = useState([]);
   const [status, setStatus] = useState([]);
-
+  const { Option } = Select;
   const selector = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isOpen) {
+      const formData = new FormData();
+      formData.append("token", token);
+      formData.append("leadId", userid);
+
+      UpdateStatus(formData)
+        .then((res) => {
+          setData(res.data.data);
+        })
+        .catch((error) => {
+          console.error("Error loading status data:", error);
+          message.error("Failed to load status options");
+        });
+
+      compettior(formData)
+        .then((res) => {
+          setComp(res.data.data);
+        })
+        .catch((error) => {
+          console.error("Error loading competitor data:", error);
+          message.error("Failed to load competitor data");
+        });
+    }
+  }, [isOpen, userid, token]);
 
   const validationSchema = Yup.object({
     leadStatus: Yup.string().required("Status is required"),
@@ -113,32 +139,6 @@ const Dropdown1Module = ({ isOpen, onClose, userid, selectedLeadId }) => {
         });
     },
   });
-
-  useEffect(() => {
-    if (isOpen) {
-      const formData = new FormData();
-      formData.append("token", selector.token);
-      formData.append("leadId", userid);
-
-      UpdateStatus(formData)
-        .then((res) => {
-          setData(res.data.data);
-        })
-        .catch((error) => {
-          console.error("Error loading status data:", error);
-          message.error("Failed to load status options");
-        });
-
-      compettior(formData)
-        .then((res) => {
-          setComp(res.data.data);
-        })
-        .catch((error) => {
-          console.error("Error loading competitor data:", error);
-          message.error("Failed to load competitor data");
-        });
-    }
-  }, [isOpen, userid, selector.token]);
 
   return (
     <Modal

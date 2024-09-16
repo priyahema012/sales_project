@@ -5,8 +5,16 @@ import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import classes from "./Lead.module.css";
 import { message } from "antd";
+import { useToken } from "../../Utility/hooks";
 
-function Editmodel({ editModel, isModalOpen, selectedLeadId, loadAdminData, onclose }) {
+function Editmodel({
+  editModel,
+  isModalOpen,
+  selectedLeadId,
+  loadAdminData,
+  onclose,
+}) {
+  const token = useToken();
   const selector = useSelector((state) => state.auth);
   const [data, setData] = useState({
     name: "",
@@ -19,7 +27,7 @@ function Editmodel({ editModel, isModalOpen, selectedLeadId, loadAdminData, oncl
   useEffect(() => {
     if (selector.token && selectedLeadId) {
       const formData = new FormData();
-      formData.append("token", selector.token);
+      formData.append("token", token);
       formData.append("leadId", selectedLeadId);
 
       viewlead(formData)
@@ -37,7 +45,7 @@ function Editmodel({ editModel, isModalOpen, selectedLeadId, loadAdminData, oncl
           console.error("Error fetching lead details", error);
         });
     }
-  }, [selector.token, selectedLeadId]);
+  }, [token, selectedLeadId]);
 
   const userValidationSchema = Yup.object({
     name: Yup.string()
@@ -67,7 +75,7 @@ function Editmodel({ editModel, isModalOpen, selectedLeadId, loadAdminData, oncl
 
   const handleUpdateUser = (values) => {
     const formData = new FormData();
-    formData.append("token", selector.token);
+    formData.append("token", token);
     formData.append("name", values.name);
     formData.append("phone_country_code", values.phone_country_code);
     formData.append("address", values.address);
@@ -215,7 +223,7 @@ function Editmodel({ editModel, isModalOpen, selectedLeadId, loadAdminData, oncl
                             <div className={classes.invalidFeedback}>
                               {formik.errors.requirements_id}
                             </div>
-                        )}
+                          )}
                       </div>
                     </div>
                   </div>
@@ -236,51 +244,13 @@ function Editmodel({ editModel, isModalOpen, selectedLeadId, loadAdminData, oncl
 
 export default Editmodel;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useState, useEffect } from "react";
 // import * as Yup from "yup";
 // import { viewlead, updatelead } from "../../axios/Services";
 // import { useSelector } from "react-redux";
 // import { useFormik } from "formik";
 // import classes from "./Lead.module.css";
-// import { message, Typography, Input } from "antd"; 
+// import { message, Typography, Input } from "antd";
 // function Editmodel({ editModel, isModalOpen, selectedLeadId ,loadAdminData, onclose}) {
 //   const selector = useSelector((state) => state.auth);
 //   const [data, setData] = useState({

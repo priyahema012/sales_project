@@ -12,10 +12,15 @@ import Employee from "./Components/User Management/Employee";
 import Dealer from "./Components/User Management/Dealer";
 import Admin from './Components/User Management/Admin';
 import Lead from "./Components/Lead/Lead";
+import CategoryMaster from "./Components/Master/CatogoryMaster"; // Renaming the import
+import EnquiryTypeMaster from "./Components/Master/EnquiryTypeMaster"; // Renaming the import
+import RequirementsMaster from "./Components/Master/RequirementsMaster"; // Renaming the import
 import { AuthPrivateRouter, HomePrivateRouter } from './Components/Router/PrivateRouter';
 import { useDispatch } from 'react-redux';
 import { handleLogin } from './redux/reducers/AuthReducer';
 import VerifyOtp from './Components/Login/VerifyOtp';
+import { Category } from '@mui/icons-material';
+import Addlead from './Components/Lead/Addlead';
 
 function App() {
   const token = localStorage.getItem('userdata');
@@ -56,6 +61,22 @@ function App() {
               path: "lead", 
               element: <Lead />,
             },
+            {
+              path: "Addlead", 
+              element: <Addlead />,
+            },
+            {
+              path: "category", 
+              element: <CategoryMaster />, // Updated
+            },
+            {
+              path: "requirements", 
+              element: <RequirementsMaster />, // Updated
+            },
+            {
+              path: "enquiry", 
+              element: <EnquiryTypeMaster />, // Updated
+            },
           ],
         },
       ],
@@ -68,24 +89,18 @@ function App() {
           path: "login",
           element: <Login />,
         },
-      
         {
           path: "signup",
           element: <Signup />,
         },
-       
         {
           path: "verify-otp",
           element: <VerifyOtp />,
         },
-
         {
           path: "reset",
           element: <ResetPassword/>,
         },
-
-
-
       ],
     },
   ]);

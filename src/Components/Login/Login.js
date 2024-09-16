@@ -17,37 +17,43 @@ const validationSchema = Yup.object({
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { values, handleChange, handleBlur, touched, errors, handleSubmit } = useFormik({
-    initialValues: {
-      userName: "",
-      password: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      const formData = new FormData();
-      formData.append("userName", values.userName);
-      formData.append("password", values.password);
-      formData.append("device_type", "3");
-      formData.append("authcode", sha1("lkjfjIHJL@fdj385!jhg" + values.userName));
+  const { values, handleChange, handleBlur, touched, errors, handleSubmit } =
+    useFormik({
+      initialValues: {
+        userName: "",
+        password: "",
+      },
+      validationSchema: validationSchema,
+      onSubmit: (values) => {
+        const formData = new FormData();
+        formData.append("userName", values.userName);
+        formData.append("password", values.password);
+        formData.append("device_type", "3");
+        formData.append(
+          "authcode",
+          sha1("lkjfjIHJL@fdj385!jhg" + values.userName)
+        );
 
-      login(formData)
-        .then(response => {
-          dispatch(handleLogin(response.data.token));
-          localStorage.setItem("userdata", JSON.stringify(response.data.token));
-          message.success("Login Successfully! Welcome to Dashboard Page");
-          navigate("/dash");
-        })
-        .catch(error => {
-          console.error("Login error:", error);
-        });
-    },
-  });
+        login(formData)
+          .then((response) => {
+            dispatch(handleLogin(response.data.token));
+            localStorage.setItem(
+              "userdata",
+              JSON.stringify(response.data.token)
+            );
+            message.success("Login Successfully! Welcome to Dashboard Page");
+            navigate("/dash");
+          })
+          .catch((error) => {
+            console.error("Login error:", error);
+          });
+      },
+    });
 
   return (
     <div className={`container-fluid ${classes.container}`}>
       <div className="row g-0">
-       
-        <div className={`col-lg-6 col-md-12 ${classes.leftSection}`}>
+        <div className={`col-lg-6 col-md-6 ${classes.leftSection}`}>
           <div className={classes.loginBox}>
             <h3 className={`${classes.heading}`}>
               Welcome Back, Please login to continue
@@ -83,12 +89,13 @@ export default function Login() {
                 ) : null}
               </div>
 
-              <button type="submit" className={`w-100 ${classes.btn}`}>LOG IN</button>
+              <button type="submit" className={`w-100 ${classes.btn}`}>
+                LOG IN
+              </button>
             </form>
           </div>
         </div>
 
-       
         <div className={`col-lg-6 col-md-12 ${classes.rightSection}`}>
           <div className={classes.overlay}></div>
           <div className={classes.rightContent}>

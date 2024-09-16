@@ -20,8 +20,8 @@
 }
 
 .table th {
-  background-color: #3d91f1;
-  color: #fff;
+  background-color: #f6f7f8;
+  color: #161616;
 }
 
 .table tr:hover {
@@ -203,7 +203,7 @@ button[type="button"]:hover {
 
 .submitButton {
   background-color: #007bff;
-  color: #fff;
+  color: #111111;
   border: none;
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -213,5 +213,97 @@ button[type="button"]:hover {
 
 .submitButton:hover {
   background-color: #3d91f1;
+}
+
+.click{
+  left: 850px;
+  position: relative;
+  bottom: 50px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column; /* Default column direction for other elements */
+}
+
+.form-row {
+  display: flex; /* Align items in a row */
+  gap: 20px; /* Space between columns */
+}
+
+.form-row .column {
+  flex: 1; /* Each column takes equal space */
+}
+
+.inputGroup {
+  margin-bottom: 15px; /* Add spacing between input fields */
+}
+
+.invalidFeedback {
+  color: red;
+  font-size: 12px;
+}
+
+.btn {
+  margin-top: 20px; /* Add space above the submit button */
+}
+
+/* Employee.module.css */
+
+.formContainer {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.column {
+  flex: 1;
+}
+
+.column input,
+.column .ant-select {
+  width: 100%;
+}
+
+.isInvalid {
+  border-color: #ff4d4f;
+}
+
+.invalidFeedback {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.submitButton {
+  display: block;
+  width: 100%;
+}
+
+.ant-select {
+  width: 100%;
+}
+
+.ant-select-selector {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 11px;
+}
+
+.ant-select-selection-item {
+  line-height: 32px;
+}
+.filterButton{
+  left: 900px;
+  position: relative;
+  bottom: 50px;
 }
 

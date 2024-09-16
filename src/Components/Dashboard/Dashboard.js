@@ -2,16 +2,27 @@ import React, { useEffect, useState } from "react";
 import { product } from "../../axios/Services";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogin } from "../../redux/reducers/AuthReducer";
-import classes from './Dashboard.module.css';
-
+import classes from "./Dashboard.module.css";
+import { useToken } from "../../Utility/hooks";
 function Dashboard() {
-  const selector = useSelector((state) => state.auth);
+  const token = useToken();
+
   const dispatch = useDispatch();
   const [data, SetData] = useState([]);
 
+  useEffect(() => {
+    if (token) {
+      handlegetData();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    console.log("Current Data:", data);
+  }, [data]);
+
   const handlegetData = () => {
     let formdata = new FormData();
-    formdata.append("token", selector.token);
+    formdata.append("token", token);
 
     product(formdata)
       .then((res) => {
@@ -30,44 +41,36 @@ function Dashboard() {
       });
   };
 
-  useEffect(() => {
-    if (selector.token) {
-      handlegetData();
-    }
-  }, [selector.token]);
-
-  useEffect(() => {
-    console.log("Current Data:", data);
-  }, [data]);
-
   return (
-    <>
-      <div className="row">
-        {data.length > 0 ? (
-          data.map((item, index) => (
-            <div className="col-md-4" key={index}>
-              <div className={classes.card}>
-                <div className={classes.cardbody}>
-                  <h5 className={classes.cardtitle}>{item.displayName}</h5>
-                  <div className={classes.cardInfoContainer}>
-                    <div className={classes.cardleads}>
-                      <p className={classes.cardleadstitle}>Leads</p>
-                      <p className={classes.cardleadsvalue}>{item.leads.value || 0}</p>
-                    </div>
-                    <div className={classes.cardoverdue}>
-                      <p className={classes.cardoverduetitle}>Overdue</p>
-                      <p className={classes.cardoverduevalue}>{item.over_due.value || 0}</p>
-                    </div>
+    <div className={classes.dashboardContainer}>
+      {data.length > 0 ? (
+        <div className={classes.gridContainer}>
+          {data.map((item, index) => (
+            <div className={classes.card} key={index}>
+              <div className={classes.cardbody}>
+                <h5 className={classes.cardtitle}>{item.displayName}</h5>
+                <div className={classes.cardInfoContainer}>
+                  <div className={classes.cardleads}>
+                    <p className={classes.cardleadstitle}>Leads</p>
+                    <p className={classes.cardleadsvalue}>
+                      {item.leads.value || 0}
+                    </p>
+                  </div>
+                  <div className={classes.cardoverdue}>
+                    <p className={classes.cardoverduetitle}>Overdue</p>
+                    <p className={classes.cardoverduevalue}>
+                      {item.over_due.value || 0}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
-          ))
-        ) : (
-          <p>No data available</p>
-        )}
-      </div>
-    </>
+          ))}
+        </div>
+      ) : (
+        <p>No data available</p>
+      )}
+    </div>
   );
 }
 
