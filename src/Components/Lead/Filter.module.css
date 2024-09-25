@@ -1,0 +1,63 @@
+.filterContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .formContainer {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  /* Input row flexbox layout */
+  .formRow {
+    display: flex;
+    flex-direction: row; /* Ensures horizontal layout */
+    gap: 20px; /* Space between fields */
+    margin-bottom: 20px;
+  }
+  
+  .formItem {
+    flex: 1; /* Makes all items take up equal space */
+    min-width: 200px;
+  }
+  
+  .inputField {
+    width: 100%; /* Input field should take full width of the form item */
+  }
+  
+  /* Button container */
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .submitButton,
+  .resetButton {
+    width: 28%; /* Buttons take up equal width */
+  }
+  
+  /* Responsive adjustments for mobile screens */
+  @media (max-width: 768px) {
+    .formRow {
+      flex-direction: column; /* Stack fields vertically */
+    }
+  
+    .submitButton,
+    .resetButton {
+      width: 50%; /* Full width buttons on small screens */
+    }
+  
+    .buttonContainer {
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 10px;
+    }
+  }
+  

@@ -1,0 +1,55 @@
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .col-md-6 {
+    flex: 1;
+    min-width: 300px; /* Adjust as needed */
+  }
+  
+  .inputGroup {
+    margin-bottom: 15px;
+  }
+  
+  .formControl {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+  }
+  
+  .formControl:focus {
+    border-color: #007bff; /* Change color on focus */
+    outline: none;
+  }
+  
+  .isInvalid {
+    border-color: red;
+  }
+  
+  .d-grid {
+    display: grid;
+  }
+  
+  .gap-2 {
+    gap: 0.5rem; /* Adjust as needed for spacing */
+  }
+  

@@ -1,7 +1,7 @@
 /* Container for the entire Dealer page */
 .tableContainer {
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: #f5f5f5;
 }
 
 /* Styling for the table */
@@ -12,6 +12,23 @@
   font-size: 16px;
   color: #333;
 }
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.table td.highlight {
+  background-color: #c3d6e7; /* Light background color */
+}
+
 
 .table th, .table td {
   padding: 10px;
@@ -67,7 +84,7 @@ button[type="button"]:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(238, 19, 19, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -305,5 +322,32 @@ button[type="button"]:hover {
   left: 900px;
   position: relative;
   bottom: 50px;
+}
+
+
+.custom-input {
+  width: 100%; /* Makes the input take the full width of its parent */
+  max-width: 100%; /* Ensures the input doesn't exceed parent container */
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+}
+
+
+.form-input {
+  width: 100%;
+  max-width: 400px; /* Ensure all inputs have a consistent width */
+  margin-bottom: 20px; /* Consistent spacing between inputs */
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the inputs */
 }
 

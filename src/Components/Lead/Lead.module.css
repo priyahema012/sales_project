@@ -1,234 +1,97 @@
-
-
-body {
-  margin: 0;
-  padding: 0;
-}
+/* Lead.module.css */
 
 .container {
-  width: 90%;
-  margin: 20px 0; 
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  float: left; 
+  background-color: #f5f5f5; /* Sets a fixed background color */
 }
-
-
-
-
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  justify-content: center;
-  width: 100%;
-  padding: 20px;
-  margin: 0;
-}
-
-
-.logout-btn {
-  background-color: #ff4d4f;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.logout-btn:hover {
-  background-color: #d43f3a;
-}
-
-
-
-
-.container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 20px;
-}
-
 
 .button {
-  align-self: flex-start; 
   background-color: #007bff;
   color: white;
-  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  padding: 8px 12px;
+  margin: 5px;
   cursor: pointer;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 14px;
 }
 
 .button:hover {
   background-color: #0056b3;
 }
 
-
-
-.button {
-  background-color: #007bff; 
-  color: white; 
-  padding: 10px 18px;
-  margin: 10px 8px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.button:hover {
-  background-color: #0056b3; 
-  transform: scale(1.05); 
-}
-
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin: 25px 0;
-  font-size: 14px;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-.table th,
+.table th, 
 .table td {
-  padding: 14px;
-  text-align: center;
+  padding: 10px;
+  text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 .table th {
   background-color: #007bff;
   color: white;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: bold;
 }
 
-.table td img {
-  width: 22px;
-  height: 22px;
-  cursor: pointer;
-  display: inline-block;
+.activerow {
+  background-color: #e8f7ff; /* Light blue for active rows */
+}
+
+.inactiverow {
+  background-color: #fff; /* Default white for inactive rows */
+}
+
+/* Center action buttons in the same row */
+td {
+  text-align: center;
   vertical-align: middle;
 }
 
-.table td {
-  position: relative;
-  vertical-align: middle; 
-}
-
-.table td:first-child,
-.table th:first-child {
-  text-align: left;
-  padding-left: 16px;
-}
-
+/* Align action buttons (icons) horizontally */
 .table td:last-child {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 10px;
+  gap: 10px; /* Add spacing between the action buttons */
 }
 
-.table tr:nth-child(even) {
-  background-color: #f2f8ff;
+.table td:last-child button,
+.table td:last-child img {
+  margin: 0 5px; /* Optional margin adjustment */
 }
 
-.table tr:hover {
-  background-color: #e1effc;
-}
-
-
-.actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-.actions button {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  font-size: 13px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease, box-shadow 0.2s ease;
-}
-
-.actions button:hover {
-  background-color: #0056b3;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-
-.icon-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
-}
-
-.icon-button svg {
-  font-size: 18px;
-  color: #007bff;
-  transition: color 0.3s ease;
-}
-
-.icon-button:hover svg {
-  color: #0056b3;
-}
-
-.icon-button span {
-  margin-left: 5px;
-  font-size: 14px;
-  color: #333;
-}
-
-.icon-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  vertical-align: middle; 
-}
-
-.table td .icon-wrapper {
-  justify-content: space-evenly;
-}
-
-.table td img,
-.icon-button svg {
-  vertical-align: middle; 
-}
-
-.table td .icon-button {
-  margin-right: 5px; 
-}
-
-.no-data {
-  text-align: center;
-  padding: 20px;
-  font-size: 16px;
-  color: #888;
-}
-
-.align-left {
-  text-align: left;
+.pagination {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
+
+/* Adjusting the image icons' size */
+img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Media query to handle responsiveness */
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    font-size: 12px;
+  }
+
+  .button {
+    font-size: 12px;
+  }
+
+  .table td:last-child {
+    gap: 5px; /* Reduce gap between buttons on smaller screens */
+  }
+}
+
+

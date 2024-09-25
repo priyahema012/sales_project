@@ -1,102 +1,62 @@
-/* Container for the Filter form */
+.filterContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
 .formContainer {
+  background-color: #f9f9f9;
   padding: 20px;
-  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   max-width: 700px;
   margin: 0 auto;
 }
 
-/* Flex container for form items */
+/* Input row flexbox layout */
 .formRow {
   display: flex;
-  gap: 20px; /* Space between input fields */
-  margin-bottom: 20px; /* Space below the row */
+  flex-direction: row; /* Ensures horizontal layout */
+  gap: 20px; /* Space between fields */
+  margin-bottom: 20px;
 }
 
-/* Form items in the row */
 .formItem {
-  flex: 1;
-  min-width: 200px; /* Minimum width for input fields */
+  flex: 1; /* Makes all items take up equal space */
+  min-width: 200px;
 }
 
-/* Input field styles */
 .inputField {
-  width: 100%; /* Full width within form item */
-  border-radius: 4px;
-  border: 1px solid #d9d9d9;
-  padding: 8px 12px;
-}
-
-.inputField:focus {
-  border-color: #40a9ff;
-  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  width: 100%; /* Input field should take full width of the form item */
 }
 
 /* Button container */
 .buttonContainer {
   display: flex;
-  justify-content: center;
-  gap: 20px; /* Increase gap between buttons */
-  margin-top: 20px;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-/* Button styles */
 .submitButton,
 .resetButton {
-  padding: 10px 30px;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 120px; /* Consistent button width */
+  width: 28%; /* Buttons take up equal width */
 }
 
-/* Button colors */
-.submitButton {
-  background-color: #1890ff;
-  color: #ffffff;
-  border: none;
-}
-
-.submitButton:hover {
-  background-color: #40a9ff;
-}
-
-.resetButton {
-  background-color: #ff4d4f;
-  color: #ffffff;
-  border: none;
-}
-
-.resetButton:hover {
-  background-color: #ff6e6e;
-}
-
-/* Form label */
-.formLabel {
-  font-weight: bold;
-  margin-bottom: 8px;
-  display: block;
-  text-align: left;
-  width: 35px;
-}
-
-/* Responsive adjustments for smaller screens */
+/* Responsive adjustments for mobile screens */
 @media (max-width: 768px) {
   .formRow {
-    flex-direction: column; /* Stack inputs vertically on small screens */
-  }
-
-  .formItem {
-    min-width: 100%;
+    flex-direction: column; /* Stack fields vertically */
   }
 
   .submitButton,
   .resetButton {
-    width: 100%;
+    width: 50%; /* Full width buttons on small screens */
   }
 
   .buttonContainer {
-    flex-direction: column; /* Stack buttons vertically on small screens */
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
   }
 }

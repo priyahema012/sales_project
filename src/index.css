@@ -34,48 +34,6 @@ code {
     monospace;
 }
 
-.ant-table-thead .ant-table-cell {
-  /* background-color: #1e36eb !important; */
-  background-color: #579ef0  !important;
+.ant-table-thead > tr > th {
+  background-color: #e7ecee !important; /* Force background color */
 }
-
-.ant-menu-item-active {
-  background-color: #0a6ad8 !important;
-}
-
-.ant-menu-item-selected {
-  background-color: #134dec !important;
-}
-
-.ant-layout .ant-layout-sider {
-  background-color: #1e1e2f;
-}
-
-.ant-layout .ant-menu {
-  background-color: #1e1e2f;
-}
-
-.ant-layout .ant-menu-root .ant-menu-inine .ant-menu-sub{
-  background-color:#1e1e2f;
-}
-
-.ant-layout .ant-layout-sider-trigger {
-  background-color: #1e1e2f;
-}
-
-.ant-otp .ant-input{
-  background-color: #c0b7e8 !important;
-}
-
-.ant-card .ant-card-head {
-  background-color: #6a5acd !important;
-}
-
-.img {
-  color:#1e1e2f;
-}
-
-.ant-table-row {
-  border-color: red;
-}
-

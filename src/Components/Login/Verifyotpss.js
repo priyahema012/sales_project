@@ -1,14 +1,14 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+// import React from 'react'
+// import { useSelector } from 'react-redux'
 
-function Verifyotpss() {
-    const rest=useSelector((state)=>state.auth.resetkey)
-    console.log("resetkey");
-  return (
-    <div>
+// function Verifyotpss() {
+//     const rest=useSelector((state)=>state.auth.resetkey)
+//     console.log("resetkey");
+//   return (
+//     <div>
       
-    </div>
-  )
-}
+//     </div>
+//   )
+// }
 
-export default Verifyotpss
+// export default Verifyotpss

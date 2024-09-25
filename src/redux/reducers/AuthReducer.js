@@ -1,6 +1,7 @@
-// src/redux/reducers/AuthReducers.js
+
 
 import { createSlice } from "@reduxjs/toolkit";
+import { leadid } from "../../axios/Services";
 
 const initialState = {
   categoryList: [],
@@ -12,7 +13,11 @@ const initialState = {
   userId: null,
   username: "",
   reset_key: "",
-  otp: ""
+  otp: "",
+  enquiryListData:[],
+  requirementsList:[],
+  leadid: ""
+
 };
 
 const authSlice = createSlice({
@@ -61,6 +66,10 @@ const authSlice = createSlice({
     handleRequirementsList: (state,action) => {
       state.requirementsList = action.payload
     },
+    handleLeadid: (state,action) => {
+      state.leadid= action.payload
+    },
+
 
   },
 });
@@ -79,7 +88,8 @@ export const {
   handleResetKey,
   handleEnquiryListData,
   handleOtp,
-  handleRequirementsList
+  handleRequirementsList,
+  handleLeadid
 } = authSlice.actions;
 
 export default authSlice.reducer;
